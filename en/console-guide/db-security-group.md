@@ -1,32 +1,34 @@
-# DB 보안 그룹
+# DB Security Group
 
-**Database > EasyCache > 콘솔 사용 가이드 > DB 보안 그룹**
+**Database > EasyCache > Console User Guide > DB Security Group**
 
-DB 보안 그룹은 캐시에 속한 노드들의 송수신 트래픽을 일괄적으로 제어하여 캐시와 노드를 보호할 목적으로 사용합니다. 규칙으로 지정한 트래픽은 허용하고, 나머지 트래픽은 차단하는 '포지티브 시큐리티 모델(positive security model)'을 사용합니다. 캐시에 DB 보안 그룹을 연결하지 않을 경우 모든 송수신 트래픽이 허용되지 않습니다. DB 보안 그룹을 생성하더라도 캐시에 적용하지 않으면 DB 보안 그룹의 규칙이 적용되지 않습니다. 캐시에 다수의 DB 보안 그룹을 적용할 수 있습니다. DB 보안 그룹의 주요 특징은 아래와 같습니다.
+DB security groups are used to protect the cache and nodes by collectively controlling the outgoing and incoming traffic of nodes belonging to the cache. It uses a “positive security model” that allows traffic specified by rules and blocks the rest. If you do not connect a cache to the DB security group, the outgoing and incoming traffic is not allowed. Even if you create a DB security group, the rules of the DB security group will not be applied if you do not apply it to the cache. You can apply multiple DB security groups to the cache. The main features of DB security groups are as follows:
 
-* DB 보안 그룹은 'stateful'로 동작하기 때문에 DB 보안 규칙으로 한 번 연결된 세션은 반대 방향의 규칙이 없더라도 허용됩니다.
-* 예를 들어 노드로 향하는 TCP 3306의 첫 번째 패킷이 '수신 TCP PORT 3306' 규칙에 따라 통과되었다면, 노드에서 TCP 3306 포트를 출발지로 하여 전송되는 패킷은 차단되지 않습니다.
-* 다만, 일정 시간 규칙에 부합하는 패킷이 들어오지 않아 세션이 만료되면 반대 방향의 패킷도 차단됩니다.
-* DB 보안 규칙은 하나씩 추가하는 것보다 범위를 지정하는 것이 효율 면에서 유리합니다. DB 보안 규칙이 증가하면 성능 저하가 발생할 수 있습니다.
-세션의 상태가 맞지 않는 트래픽은 차단될 수 있습니다.
+* Because DB security groups operate “stateful”, a session that has once been connected to DB security rules is allowed even if there are no rules in the opposite direction.
+* For example, if the first packet on TCP 3306 to a node was passed by the “Receiving TCP PORT 3306” rule, packets sent from the node originating on TCP 3306 port will not be blocked.
+* However, if the session expires since no packets matching the rules arrive within a certain period of time, packets in the opposite direction are also blocked.
+* It's more efficient to specify a range of DB security rules than to add them one by one. Increasing the number of DB security rules can lead to performance degradation. Traffic with inappropriate session status may be blocked.
 
-DB 보안 그룹은 이름과 설명, 다수의 DB 보안 규칙으로 구성되며, DB 보안 그룹의 이름은 아래와 같은 제약 사항이 있습니다.
+A DB security group consists of a name, a description, and multiple DB security rules. DB security group names have the following restrictions:
 
-* DB 보안 그룹 이름은 1~100 사이의 영문자, 숫자, 일부 기호(-, _, .)만 사용할 수 있으며, 첫 번째 글자는 영문자만 사용할 수 있습니다.
+* The DB security group name can be between 1 and 100 characters long and can only contain English letters, numbers, and some symbols (-, \_, .). The first character can only be an English letter.
 
-### DB 보안 그룹 적용
-캐시를 생성할 때 적용할 DB 보안 그룹을 선택할 수 있습니다. 캐시에 속한 노드들은 모두 선택한 DB 보안 그룹에 영향을 받습니다. 캐시에 다수의 DB 보안 그룹을 적용할 수 있습니다. 적용된 모든 DB 보안 그룹의 규칙들이 캐시에 적용됩니다. 캐시 수정 화면에서 자유롭게 변경할 수 있습니다.
+### Apply DB Security Group
 
-## DB 보안 규칙
-하나의 DB 보안 그룹에 다수의 DB 보안 규칙을 생성할 수 있습니다. 캐시에 DB 보안 그룹을 설정하면 캐시에 속한 모든 노드들에게 해당 DB 보안 그룹에 생성된 모든 DB 보안 규칙들이 적용됩니다.
+You can select a DB security group to apply when creating a cache. All nodes within the cache will be affected by the selected DB security group. You can apply multiple DB security groups to the cache. All DB security group rules applied are applied to the cache. You can freely change it in the cache modification screen.
 
-| 항목 | 설명 |
-| - | - |
-| 방향 | 수신은 캐시에 속한 노드로 유입되는 방향을 의미합니다. 송신은 캐시에 속한 노드에서 나가는 방향을 의미합니다. |
-| 포트 | 규칙을 적용할 포트를 설정합니다. 포트, 포트 범위, 서비스 포트, TLS 서비스 포트를 선택할 수 있습니다. 서비스 포트 또는 TLS 포트를 선택하면 DB 보안 그룹과 연결한 캐시 정보에 맞게 포트 값이 지정됩니다. |
-| Ether | EtherType IP의 버전을 의미합니다. IPv4, IPv6를 지정할 수 있습니다. |
-| 원격 | IP 주소 범위를 지정할 수 있습니다. 규칙의 방향이 '송신'이면 목적지가 원격이고, '수신'이면 출발지가 원격입니다. 규칙의 방향에 따라 트래픽의 출발지와 목적지가 설정된 IP 주소나 범위인지를 비교합니다. |
-| 설명 | DB 보안 그룹 규칙에 대한 설명을 추가할 수 있습니다. |
+## DB Security Rules
 
-### DB 보안 규칙 변경
-DB 보안 규칙의 생성, 수정, 삭제와 같은 변경이 발생하면 변경 사항이 DB 보안 그룹과 연결된 캐시와 캐시에 속한 노드들에 순차적으로 적용됩니다. DB 보안 그룹에 연결된 모든 캐시 및 노드에 적용되기 전까지 DB 보안 그룹에 신규로 DB 보안 규칙을 추가하거나, 다른 DB 보안 규칙을 수정, 삭제할 수 없습니다.
+You can create multiple DB security rules for a single DB security group. When you set a DB security group for a cache, all DB security rules created in the DB security group will be applied to all nodes within the cache.
+
+| Item| Description|
+|----------|----------|
+| Direction| Incoming refers to the direction of incoming traffic to a node belonging to the cache. Outgoing refers to the direction of outgoing traffic from a node belonging to the cache.|
+| Port| Set the port to apply the rules. Options are available for port, port range, service port, and TLS service port. When you select a service port or TLS port, the port value is assigned according to the cache information associated with the DB security group.|
+| Ether| It refers to the version of EtherType IP. You can specify Ipv4 and IPv6.|
+| Remote| You can specify IP address range. If the rule's direction is "Send," the destination is remote. If the rule's direction is "Receive," the source is remote. Depending on the rule's direction, the source and destination of the traffic are compared to the specified IP address or range.|
+| Description| You can add the description for DB security group rules.|
+
+### Change DB Security Group
+
+When changes to a DB security rule occur, such as creation, modification, or deletion, the changes are applied sequentially to caches associated with the DB security group and the nodes within the caches. You cannot add new DB security rules to the DB security group, nor can you modify or delete other DB security rules until the changes are applied to all caches and nodes associated with the DB security group.

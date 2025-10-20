@@ -43,7 +43,7 @@ You can create a cache by using the settings below:
 NHN Cloud has divided its entire system into multiple availability zones to prepare for failures caused by physical hardware issues. Each availability zone has separate storage systems, network switches, racks, and power supplies. Failures within one availability zone do not affect other availability zones, increasing the availability of the entire service. EasyCache allows you to select the availability zone of the master node, and automatically assigns the availability zones of the read replica nodes based on the selected availability zone, thereby increasing availability. There is no network usage cost incurred during network communication between nodes created across multiple availability zones.
 
 !!! danger "warning"
-    The availability zone of master nodes already created can be changed.
+    The availability zone of master nodes already created can be changed.
 
 ### Engine Version
 
@@ -51,21 +51,21 @@ The versions listed below are available:
 
 | Version | Note |
 | --- | --- |
-| **Valkey 8** |  |
-| 8.0.2 |  |
+| **Valkey 8** | |
+| 8.0.2 | |
 | **Redis 7** | New cache support ended |
-| 7.2.6 |  |
-| 7.2.4 |  |
-| 7.0.7 |  |
+| 7.2.6 | |
+| 7.2.4 | |
+| 7.0.7 | |
 | **Redis 6** | New cache support ended |
-| 6.2.3 |  |
+| 6.2.3 | |
 | **Redis 5** | New cache support ended |
-| 5.0.8 |  |
+| 5.0.8 | |
 | **Redis 3** | New cache support ended |
-| 3.2.12 |  |
+| 3.2.12 | |
 
 !!! tip "notice"
-    Newly created caches no longer provide Redis, and we only serve caches that are already using Redis.
+    Newly created caches no longer provide Redis, and we only serve caches that are already using Redis.
 
 ### Instance Flavor
 
@@ -80,7 +80,7 @@ When creating an instance, you must select the appropriate instance flavor based
 | x1 | This flavor supports high-spec CPUs and memory. Used for services or applications that require high performance. |
 
 !!! danger "warning"
-    The instance flavor of caches and nodes already created can be changed. It is not currently available as an official feature, please contact the customer center if necessary.
+    The instance flavor of caches and nodes already created can be changed. It is not currently available as an official feature, please contact the customer center if necessary.
 
 ### Max Memory (MB)
 
@@ -97,7 +97,7 @@ After the cache is completed, you can check it in the cache basic information or
 You need to select the VPC subnet to connect to the node you belong to in the cache. The instance of the Compute service connected to the same subnet can communicate without a separate floating IP and no cost for network traffic. The node basically blocks all network access, so if you want to connect, you need to apply the DB security group.
 
 !!! danger "warning"
-    The subnets of caches and nodes already created can be changed.
+    The subnets of caches and nodes already created can be changed.
 
 ### Floating IP
 
@@ -123,7 +123,7 @@ NHN Cloud's **@Certificate Manager ** You can select one of the certificates sto
 * VALKEY requires both public, secret key, and CA public keys. Therefore, the certificate to be used should include all the keys, and for how to generate the key, refer to the [Certificate Manager> Troubleshooting Guide] (https://docs.nhncloud.com/en/manage/certificate%20Manager/en/troubleshooting-guide/).
 
 !!! danger "warning"
-    If you decide whether to use the TLS certificate at the time of the creation of a replica group, you will not be able to change it later.
+    If you decide whether to use the TLS certificate at the time of the creation of a replica group, you will not be able to change it later.
 
 ### Backup
 
@@ -250,8 +250,8 @@ The Users tab of a node allows you to create, view, edit, and delete users in Va
 ➍: when you click **Save** in the settings file, the user information currently stored in Valkey memory will be recorded to the settings file, so that the user settings will be maintained even after restarting.
 
 !!! danger "warning"
-    * User settings are information set per node and are not propagated to other nodes belonging to the same cache. Therefore, if you have different user settings for each node, failover may not proceed properly, so be careful.
-    * Please note that user information created on the node may be lost due to reasons such as cache restart before being saved to the configuration file.
+    * User settings are information set per node and are not propagated to other nodes belonging to the same cache. Therefore, if you have different user settings for each node, failover may not proceed properly, so be careful.
+    * Please note that user information created on the node may be lost due to reasons such as cache restart before being saved to the configuration file.
 
 ## Modify Cache
 

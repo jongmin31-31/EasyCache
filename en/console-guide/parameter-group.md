@@ -1,47 +1,47 @@
-# 파라미터 그룹
+# Parameter Group
 
-**Database > EasyCache > 콘솔 사용 가이드 > 파라미터 그룹**
+**Database > EasyCache > Console User Guide > Parameter Group**
 
-EasyCache는 캐시에 설치된 Valkey(구 Redis) 설정을 적용하기 위해 파라미터 그룹 기능을 제공합니다. 파라미터 그룹은 Valkey를 설정할 수 있는 파라미터의 집합입니다. 서비스 활성화 시 모든 엔진의 버전별로 기본 파라미터 그룹을 제공합니다. 기본 파라미터 그룹은 `{엔진 버전 이름} Default`로 제공되며, 버전별 권장하는 기본 파라미터 값으로 구성되어 있습니다. 기본 파라미터 그룹은 일반 파라미터 그룹과 동일하게 수정하거나 삭제할 수 있습니다.
+EasyCache provides a parameter group feature to apply Valkey (old Redis) settings installed on the cache. A parameter group is a set of parameters that allow you to configure Valkey. When activating the service, a default parameter group is provided for each version of each engine. The default parameter group is provided as `{engine version name} Default` and consists of default parameter values recommended by versions. The default parameter group can be modified or deleted as the same as the common parameter group does.
 
-### 파라미터 그룹 생성
+### Create Parameter Group
 
-필요에 따라 파라미터 콘솔에서 파라미터 그룹을 생성할 수 있습니다. 파라미터 그룹은 엔진 버전 별로 생성하며 이름을 부여할 수 있으며 아래와 같은 제약 사항이 있습니다.
+You can create parameter groups in the console as needed. Parameter groups are created and named for each engine version, and have the following restrictions:
 
-* 파라미터 그룹 이름은 1~100 사이의 영문자, 숫자, 일부 기호(-, _, .)만 사용할 수 있으며, 첫 번째 글자는 영문자만 사용할 수 있습니다.
-* 파라미터 그룹 생성 시 파라미터는 항상 기본값으로 생성됩니다. 기존 파라미터 그룹을 기준으로 생성하려면 파라미터 복사 기능을 이용해서 파라미터 그룹을 생성해야 합니다.
+* The parameter group name can be between 1 and 100 characters long and can only contain English letters, numbers, and some symbols (-, \_, .). The first character can only be an English letter.
+* When creating a parameter group, parameters are always created with default values. To create a parameter group based on an existing parameter group, you must use the Copy Parameter function to create the parameter group.
 
-### 파라미터 그룹 복사
+### Copy Parameter Group
 
-기존 파라미터 그룹을 기준으로 신규 파라미터 그룹을 생성합니다. 복사한 신규 파라미터 그룹은 원본 파라미터 그룹의 파라미터 값으로 구성됩니다. 원본 파라미터 그룹과 복사한 파라미터 그룹 간에는 어떠한 연관 관계가 없으며, 원본 파라미터 그룹의 변경 및 삭제는 복사한 파라미터 그룹에 어떠한 영향도 끼치지 않습니다.
+Create a new parameter group based on an existing parameter group. The copied new parameter group consists of parameter values from the original parameter group. There is no relationship between the original and copied parameter groups, and changes or deletions in the original parameter group have no effect on the copied parameter group.
 
-### 파라미터 그룹 재설정
+### Reset Parameter Group
 
-파라미터 그룹을 재설정하면 모든 파라미터의 값을 엔진 버전의 기본값으로 변경합니다.
+Resetting parameter groups change all parameter values into engine version’s default values.
 
-### 파라미터 그룹 적용
+### Apply Parameter Group
 
-캐시 생성 또는 수정 시 캐시에 적용할 파라미터 그룹을 선택할 수 있습니다. 하나의 캐시에 하나의 파라미터 그룹이 적용되며, 하나의 파라미터 그룹은 다수의 캐시에 적용할 수 있습니다. 파라미터 그룹의 파라미터가 변경되면 해당 변경 사항은 바로 캐시에 적용되지 않습니다. 연결된 캐시가 존재할 경우 파라미터 그룹은 '적용 필요' 상태로 변경되며, 연결된 캐시는 캐시 목록 화면에서 **파라미터** 버튼이 활성화됩니다. 캐시 목록 화면의 **파라미터** 버튼을 클릭하여 파라미터 변경 사항을 캐시에 반영할 수 있습니다. 연결된 모든 캐시에 파라미터 그룹의 변경 사항이 적용되면 파라미터 그룹은 '적용 완료' 상태로 변경됩니다.
+You can select parameter groups to be applied to caches when creating and modifying them. A parameter group applies to a single cache, and a parameter group can be applied to multiple caches. When parameters in a parameter group are changed, the changes are not immediately applied to the cache. If there are associated caches, the parameter group status changes to "Apply Required," and the associated cache's **Parameter** button becomes active in the cache list screen. You can apply parameter changes to the cache by clicking the **Parameter** button on the Cache List screen. Once the parameter group changes are applied to all connected caches, the parameter group will change to the "Applied" status.
 
-!!! tip "알아두기"
-    재시작이 필요한 파라미터가 변경된 경우 적용 과정에서 캐시가 재시작됩니다.
+What is !!! tip "Note" If a parameter that requires a restart is changed, the cache will be restarted during the application process.
 
-### 파라미터 그룹 비교
+### Compare Parameter Group
 
-콘솔에서 서로 다른 2개의 파라미터 그룹을 선택한 뒤 **비교**를 클릭하면 파라미터가 무엇이 다른지 확인할 수 있습니다. 동일한 엔진뿐만 아니라 서로 다른 엔진 버전의 파라미터 그룹도 비교할 수 있습니다.
+Select two different parameter groups in the console and click **Compare** to see the parameter differences. You can compare parameter groups not only from the same engine but also from different engine versions.
 
-### 파라미터 그룹 삭제
+### Delete Parameter Group
 
-캐시에 적용 중인 파라미터 그룹을 제외하면 자유롭게 삭제할 수 있습니다. 캐시에 적용 중인 파라미터 그룹을 삭제하려면 삭제하기 전 연결된 모든 캐시의 파라미터 그룹을 먼저 변경해야 합니다.
+You can freely delete parameter groups except those currently being applied to caches. To delete a parameter group currently being applied to a cache, you must first change the parameter groups in all connected caches before deleting it.
 
-## 파라미터
+## Parameter
 
-### 파라미터 변경
+### Change Parameter
 
-콘솔에서 파라미터 그룹을 선택한 뒤 **파라미터 편집**을 클릭해 파라미터를 변경할 수 있습니다. 변경할 수 없는 파라미터는 값이 일반 텍스트로 나타나며, 변경할 수 있는 파라미터는 값을 변경할 수 있는 INPUT이 나타납니다. 편집 화면에서 **변경 사항 미리 보기**를 클릭하면 변경된 파라미터를 확인할 수 있는 별도의 팝업 화면이 표시되며, **재설정**을 누르면 변경하기 전으로 되돌릴 수 있습니다. 편집 모드에서 변경한 모든 값은 변경 사항 **저장**을 클릭해야 파라미터 그룹에 반영됩니다.
+You can change parameters by selecting a parameter group in the console and clicking **Edit Parameter**. Parameters that cannot be changed will display their values in plain text, while those that can be changed will display an input field where you can change the value. Clicking **Preview Changes** in the Edit screen will display a separate pop-up window where you can review the changed parameters. Clicking **Reset** will revert the changes to their previous state. By clicking **Save** changes, all values changed in the Edit mode will be reflected in the parameter group
 
-### `acl-save-enabled` 파라미터 변경
-`acl-save-enabled`는 Redis 6.0 버전 이후부터 적용 가능한 파라미터로, 엔진의 사용자 계정 및 권한 정보를 파일에 영구적으로 저장하는 기능 활성화 여부를 결정합니다. 기본값은 `no`이고, 이때에는 노드에 사용자 및 권한 정보를 지정하더라도 노드 재시작이 발생할 경우 해당 정보가 사라지고 다시 기본 설정으로 돌아갑니다. 따라서 사용자 정보를 영구적으로 기록하기 위해 해당 옵션을 `yes`로 변경하여야 하며, 사용자 정보를 편집하였다면 반드시 설정 파일에 **저장**을 눌러 완전히 저장하는 것을 권장합니다.
+### Change `acl-save-enabled` Parameter
 
-!!! danger "주의"
-    acl-save-enabled 파라미터의 값을 변경할 경우 연관된 캐시 및 노드들의 재시작이 필요하므로 조작에 주의하여야 합니다.
+`acl-save-enabled` is a parameter applicable from Redis version 6.0 onwards that determines whether to enable the feature of permanently storing the engine's user account and permission information in a file. The default is `no`. If you specify user and permission information for a node, that information will be lost and revert to the default settings if the node restarts. Therefore, to permanently record user information, you should change this option to `yes`. If you edit user information, it's recommended to click **Save** to settings to ensure complete saving.
+
+!!! danger "Caution"
+    Changing the value of the acl-save-enabled parameter requires careful manipulation, as it requires restarting the associated caches and nodes.
