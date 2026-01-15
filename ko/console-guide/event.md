@@ -174,8 +174,6 @@
 | NODE | NODE_UPGRADE_RPM_DELETE_FAILED                     | 예 | 노드 엔진 업그레이드 RPM 삭제 실패              |
 | NODE | NODE_UPGRADE_SENTINEL_START_FAILED                 | 예 | 노드 엔진 업그레이드 센티넬 시작 실패              |
 | NODE | NODE_UPGRADE_SENTINEL_STOP_FAILED                  | 예 | 노드 엔진 업그레이드 센티넬 중지 실패              |
-| NODE | SENTINEL_INSTANCE_RUNNING                          | 아니오 | 인스턴스 실행                            |
-| NODE | SENTINEL_INSTANCE_STOPPED                          | 아니오 | 인스턴스 중지됨                           |
 | NODE | SLAVE_NODE_CREATION_START                          | 예 | 복제 노드 생성 시작                        |
 | NODE | SLAVE_NODE_CREATION_END                            | 예 | 복제 노드 생성 완료                        |
 | NODE | SLAVE_NODE_CREATION_FAILED                         | 예 | 복제 노드 생성 실패                        |
@@ -256,6 +254,8 @@
 | PARAMETER_GROUP | PROFILE_UPDATE_START                               | 아니오 | 프로필 업데이트 시작                        |
 | PARAMETER_GROUP | PROFILE_UPDATE_END                                 | 아니오 | 프로필 업데이트 완료                        |
 | PARAMETER_GROUP | PROFILE_UPDATE_FAILED                              | 아니오 | 프로필 업데이트 실패                        |
+| NODE | SENTINEL_INSTANCE_RUNNING                          | 아니오 | 인스턴스 실행                            |
+| NODE | SENTINEL_INSTANCE_STOPPED                          | 아니오 | 인스턴스 중지됨                           |
 
 
 ## 이벤트 구독
