@@ -5,7 +5,7 @@
 Cache is a concept for managing nodes with virtual equipment and engines (Valkey and old Redis) installed, and is the largest resource unit within the EasyCache service.
 A single cache consists of multiple nodes, and the nodes belonging to the cache share information such as the cache's engine version, port, password, parameter group, and security group.
 
-* The available port range is between 10,000 and 12,000.
+* The available service port range is between 10,000 and 12,000.
 * Currently we provide the Valkey engine. For Redis, we only support caches that have already been created.
 * A cache automatically issues and provides a 32-byte ID.
 * Users can enter or modify the cache name, and it has the limitation as below:
@@ -296,7 +296,7 @@ If the cache only contains one master node, the engine version upgrade will occu
 
 !!! tip "Note"
     * Redis versions prior to 7.0.7 can be upgraded to 7.0.7 before being upgraded to the next version.
-    * Upgrades from Redis to Valkey are not currently available, but will be available in the future.
+    * Redis versions 7.0.7 or later provide upgrades to the latest version.
 
 ## Modify Node
 
@@ -435,8 +435,7 @@ All nodes in the same region as the master node detect the master node and, base
 ### Auto Failover
 
 If a failure is detected through failure detection, one of the read replica nodes in the same region as the master is elected as the new master through agreement between nodes, and the existing master is changed to a read replica.
-IP information for the access domain is updated based on the newly failed-over node. While the Floating IP domain remains the same, its underlying Floating IP is automatically redirected to the new master.
-For read-only domains, the domain information is not updated immediately during failover to avoid interrupting client communications. Instead, an **Update Read-Only Domain** button will appear on the console, allowing you to update the IP information based on the current read-only nodes.
+The IP information of connection domain and read-only domain for connection are updated based on the new failed-over node, and the floating IP domain does not change, but the floating IP pointed to by the floating IP domain is automatically changed to point to the new master.
 
 !!! tip "Note"
     * Failover is only supported for nodes within the same region as the master node. Automatic failover is not supported if read replicas are only added in different regions.

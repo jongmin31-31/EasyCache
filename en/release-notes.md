@@ -1,52 +1,24 @@
 ## Database > EasyCache > Release Notes
 
-### January 27, 2026
-
-#### Feature Updates
-- Added a button to the console to refresh read-only domain IPs after a successful failover
-- Enabled searching of the cache list by ID
-- Updated the event list in the user guide to reflect the latest information
-- Updated parameter names for Valkey 8.x and later to align with the latest version
-
-#### Bug Fixes
-- Fixed an error that occurred when RDB filenames contained specific strings during data import
-- Fixed localization issues in CSV header columns for event page downloads
-
 ### November 15, 2025
 
 #### Feature Updates
 
 - Added support for Valkey 8.1.4
-- Improved the guidance text for certain parameters
-- Reordered the Event Code List in Event Subscription to follow the 'Start', 'Complete', and 'Fail' sequence
+- Improved texts in the guide for some parameters
+- Made improvements so that the list from Event Subscription > Event Code is sorted by "Start", "Completed", and "Failed".
 
 #### Bug Fixes
 
-- Fixed an issue where engine version upgrades failed under specific conditions
-- Fixed an issue where the Modify button remained enabled while cache or parameter group operations were in progress
-- Fixed an issue where the High Availability Reset button was displayed during node deletion
-- Fixed an issue where error messages were triggered in the Monitoring or User tabs for nodes in different regions
-- Fixed an issue where nodes from other regions were incorrectly listed in the Server Dashboard tab
+- Fixed a bug that caused engine version upgrades to fail under certain conditions.
+- Fixed a bug where the Modify button was enabled while working on cache and parameter groups.
+- Fixed a bug where the Reset High Availability button was exposed during node deletion.
+- Fixed a bug where an error message was displayed in the Monitoring/User tabs of other region nodes.
+- Fixed a bug where other region nodes were displayed in the Server Dashboard tab.
 
 ### September 23, 2025
 
 #### Feature Updates
-- Revamped the console UI
-- Updated and enhanced existing features
-  - The changed features are as follows:
-
-  | AS-IS | TO-BE |
-  | --- | --- |
-  | Replication group | Cache |
-  | Profile setting | Parameter group | 
-  | Access control feature | DB security group | 
-  | Notification feature | Notification group and user group |
-
-- Improvements to backup and events
-
-### July 29, 2025
-
-#### Bug Fixes
 - Fixed an issue where a "Could not find the tenant resource" error message was displayed for a short time immediately after service activation
 - Fixed an issue where emails were not sent when restarting EasyCache for hypervisor maintenance
 - Fixed an issue where restarting EasyCache for hypervisor maintenance failed under certain conditions
