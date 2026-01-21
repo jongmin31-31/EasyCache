@@ -1,5 +1,49 @@
 ## Database > EasyCache > Release Notes
 
+### January 27, 2026
+
+#### Feature Updates
+- Added a button to the console to refresh read-only domain IPs after a successful failover
+- Enabled searching of the cache list by ID
+- Updated the event list in the user guide to reflect the latest information
+- Updated parameter names for Valkey 8.x and later to align with the latest version
+
+#### Bug Fixes
+- Fixed an error that occurred when RDB filenames contained specific strings during data import
+- Fixed localization issues in CSV header columns for event page downloads
+
+### November 15, 2025
+
+#### Feature Updates
+
+- Added support for Valkey 8.1.4
+- Improved the guidance text for certain parameters
+- Reordered the Event Code List in Event Subscription to follow the 'Start', 'Complete', and 'Fail' sequence
+
+#### Bug Fixes
+
+- Fixed an issue where engine version upgrades failed under specific conditions
+- Fixed an issue where the Modify button remained enabled while cache or parameter group operations were in progress
+- Fixed an issue where the High Availability Reset button was displayed during node deletion
+- Fixed an issue where error messages were triggered in the Monitoring or User tabs for nodes in different regions
+- Fixed an issue where nodes from other regions were incorrectly listed in the Server Dashboard tab
+
+### September 23, 2025
+
+#### Feature Updates
+- Revamped the console UI
+- Updated and enhanced existing features
+  - The changed features are as follows:
+
+  | AS-IS | TO-BE |
+  | --- | --- |
+  | Replication group | Cache |
+  | Profile setting | Parameter group | 
+  | Access control feature | DB security group | 
+  | Notification feature | Notification group and user group |
+
+- Improvements to backup and events
+
 ### July 29, 2025
 
 #### Bug Fixes

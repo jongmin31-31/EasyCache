@@ -52,6 +52,7 @@ The versions listed below are available:
 | Version | Note |
 | --- | --- |
 | **Valkey 8** |  |
+| 8.1.4 |  |
 | 8.0.2 |  |
 | **Redis 7** | New cache support ended |
 | 7.2.6 |  |
@@ -434,10 +435,13 @@ All nodes in the same region as the master node detect the master node and, base
 ### Auto Failover
 
 If a failure is detected through failure detection, one of the read replica nodes in the same region as the master is elected as the new master through agreement between nodes, and the existing master is changed to a read replica.
-The connection domain and read-only domain information for connection are updated based on the new failed-over node, and the floating IP domain does not change, but the floating IP pointed to by the floating IP domain is automatically changed to point to the new master.
+IP information for the access domain is updated based on the newly failed-over node. While the Floating IP domain remains the same, its underlying Floating IP is automatically redirected to the new master.
+For read-only domains, the domain information is not updated immediately during failover to avoid interrupting client communications. Instead, an **Update Read-Only Domain** button will appear on the console, allowing you to update the IP information based on the current read-only nodes.
 
 !!! tip "Note"
-    Since failover is a function that targets nodes belonging to the same region as the master node, automatic failover is not supported when adding read replica nodes only in other regions.
+    * Failover is only supported for nodes within the same region as the master node. Automatic failover is not supported if read replicas are only added in different regions.
+    * We recommend clicking the Update Read-Only Domain button only after the failure is fully resolved to ensure the IP information is updated based on the final status of the read-only nodes.
+    * Unlike an actual failover, the read-only domain IP information is automatically updated when IP changes occur through manual master changes or other administrative functions.
 
 ### Remove Forced Replication Connection
 

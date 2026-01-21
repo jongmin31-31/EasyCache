@@ -1,266 +1,275 @@
 # 이벤트
 
-**Database > EasyCache > 콘솔 사용 가이드 > 이벤트**
+**Database > EasyCache > Console User Guide > Event**
 
-이벤트는 Valkey 또는 사용자에 의해 발생한 중요한 사건을 의미합니다. 이벤트는 이벤트 유형, 발생 일시, 원본 소스와 메시지로 구성됩니다. 이벤트는 콘솔에서 조회 가능하며, 구독을 통해 이메일, SMS으로 이벤트 발생 알림을 받을 수 있습니다. 이벤트의 유형과 발생 가능한 이벤트는 아래와 같습니다.
+Events represent significant occurrences triggered by Valkey or user actions. Each event consists of an event type, timestamp, source, and message. You can view these events directly in the console or set up subscriptions to receive real-time notifications via email or SMS. The following section outlines the types of events and a list of supported events:
 
-* 현재 제공하는 이벤트 유형 및 이벤트 코드
+* Supported Event Types and Codes
 
-| 이벤트 유형 | 이벤트 코드 | 구독 가능 여부 | 설명 |
+| Event type | Event code                                             | Subscribable | Description                                 |
+| - |----------------------------------------------------| - |------------------------------------|
+| CACHE | APPLY_LATEST_PARAMETER_GROUP_START | Yes | Application of the latest parameter group started |
+| CACHE | APPLY_LATEST_PARAMETER_GROUP_END | Yes | Application of the latest parameter group completed |
+| CACHE | APPLY_LATEST_PARAMETER_GROUP_FAILED | Yes | Application of the latest parameter group failed |
+| CACHE | AUTO_BACKUP_ACTIVATION_START | Yes | Automatic backup activation started |
+| CACHE | AUTO_BACKUP_ACTIVATION_END | Yes | Automatic backup activation completed |
+| CACHE | AUTO_BACKUP_ACTIVATION_FAILED | Yes | Automatic backup activation failed |
+| CACHE | AUTO_BACKUP_DEACTIVATION_START | Yes | Automatic backup deactivation started |
+| CACHE | AUTO_BACKUP_DEACTIVATION_END | Yes | Automatic backup deactivation completed |
+| CACHE | AUTO_BACKUP_DEACTIVATION_FAILED | Yes | Automatic backup deactivation failed |
+| CACHE | BACKUP_START | Yes | Backup started |
+| CACHE | BACKUP_END | Yes | Backup completed |
+| CACHE | BACKUP_FAILED | Yes | Backup failed |
+| CACHE | BACKUP_DELETION_START | Yes | Backup deletion started |
+| CACHE | BACKUP_DELETION_END | Yes | Backup deletion completed |
+| CACHE | BACKUP_DELETION_FAILED | Yes | Backup deletion failed |
+| CACHE | BACKUP_MIGRATE_START | No | Backup migration started |
+| CACHE | BACKUP_MIGRATE_END | No | Backup migration completed |
+| CACHE | BACKUP_MIGRATE_DOWNLOAD_FAILED | No | Backup migration download failed |
+| CACHE | BACKUP_MIGRATE_RDB_CHECK_FAILED | No | Backup migration RDB check failed |
+| CACHE | BACKUP_MIGRATE_RDB_CHECKSUM_FAILED | No | Backup migration RDB checksum failed |
+| CACHE | BACKUP_MIGRATE_RDB_MEMORY_FAILED | No | Backup migration RDB memory failed |
+| CACHE | BACKUP_MIGRATE_RDB_TYPE_FAILED | No | Backup migration RDB type failed |
+| CACHE | BACKUP_MIGRATE_RDB_VERSION_FAILED | No | Backup migration RDB version failed |
+| CACHE | BACKUP_MIGRATE_REPLICA_CHECK_FAILED | No | Backup migration replica check failed |
+| CACHE | BACKUP_MIGRATE_RESTART_FAILED | No | Backup migration restart failed |
+| CACHE | BACKUP_RESTORE_EXISTING_CACHE_START | Yes | Backup restore started with existing cache |
+| CACHE | BACKUP_RESTORE_EXISTING_CACHE_END | Yes | Backup restore completed with existing cache |
+| CACHE | BACKUP_RESTORE_EXISTING_CACHE_FAILED | Yes | Backup restore failed with existing cache |
+| CACHE | BACKUP_RESTORE_EXISTING_CACHE_DOWNLOAD_FAILED | Yes | Backup restore download failed with existing cache |
+| CACHE | BACKUP_RESTORE_EXISTING_CACHE_RDB_CHECK_FAILED | Yes | Backup restore with existing cache RDB check failed |
+| CACHE | BACKUP_RESTORE_EXISTING_CACHE_RDB_CHECKSUM_FAILED | Yes | Restoring backup to existing cache failed with RDB checksum |
+| CACHE | BACKUP_RESTORE_EXISTING_CACHE_RDB_MEMORY_FAILED | Yes | Restoring backup to existing cache failed with RDB memory |
+| CACHE | BACKUP_RESTORE_EXISTING_CACHE_RDB_TYPE_FAILED | Yes | Restoring backup to existing cache failed with RDB type |
+| CACHE | BACKUP_RESTORE_EXISTING_CACHE_RDB_VERSION_FAILED | Yes | Restoring backup to existing cache failed with RDB version |
+| CACHE | BACKUP_RESTORE_EXISTING_CACHE_REPLICA_CHECK_FAILED | Yes | Restoring backup to existing cache failed with replica check |
+| CACHE | BACKUP_RESTORE_EXISTING_CACHE_RESTART_FAILED | Yes | Restoring backup to existing cache failed with restart |
+| CACHE | BACKUP_RESTORE_NEW_CACHE_START | Yes | Backup restore started with new cache |
+| CACHE | BACKUP_RESTORE_NEW_CACHE_END | Yes | Backup restore completed with new cache |
+| CACHE | BACKUP_RESTORE_NEW_CACHE_FAILED | Yes | Backup restore failed with new cache |
+| CACHE | CACHE_CERTIFICATE_UPDATE_START | Yes | Cache certificate renewal started |
+| CACHE | CACHE_CERTIFICATE_UPDATE_END | Yes | Cache certificate renewal completed |
+| CACHE | CACHE_CERTIFICATE_UPDATE_FAILED | Yes | Cache certificate renewal failed |
+| CACHE | CACHE_CREATION_START | Yes | Cache creation started |
+| CACHE | CACHE_CREATION_END | Yes | Cache creation completed |
+| CACHE | CACHE_CREATION_FAILED | Yes | Cache creation failed |
+| CACHE | CACHE_DATA_EXPORTING_START | Yes | Cache data export started |
+| CACHE | CACHE_DATA_EXPORTING_END | Yes | Cache data export completed |
+| CACHE | CACHE_DATA_EXPORTING_FAILED | Yes | Cache data export failed |
+| CACHE | CACHE_DATA_EXPORTING_RDB_CREATE_FAILED | Yes | Cache data export RDB creation failed |
+| CACHE | CACHE_DATA_EXPORTING_SETTING_FAILED | Yes | Cache data export setting failed |
+| CACHE | CACHE_DATA_EXPORTING_UPLOAD_FAILED | Yes | Cache data export upload failed |
+| CACHE | CACHE_DATA_IMPORTING_START | Yes | Cache data import started |
+| CACHE | CACHE_DATA_IMPORTING_END | Yes | Cache data import completed |
+| CACHE | CACHE_DATA_IMPORTING_FAILED | Yes | Fetching cache data failed |
+| CACHE | CACHE_DATA_IMPORTING_DOWNLOAD_FAILED | Yes | Cache data import download failed |
+| CACHE | CACHE_DATA_IMPORTING_RDB_CHECK_FAILED | Yes | Cache data import RDB check failed |
+| CACHE | CACHE_DATA_IMPORTING_RDB_CHECKSUM_FAILED | Yes | Cache data import RDB checksum failed |
+| CACHE | CACHE_DATA_IMPORTING_RDB_MEMORY_FAILED | Yes | Cache data import RDB memory failed |
+| CACHE | CACHE_DATA_IMPORTING_RDB_TYPE_FAILED | Yes | Cache data import RDB type failed |
+| CACHE | CACHE_DATA_IMPORTING_RDB_VERSION_FAILED | Yes | Cache data import RDB version failed |
+| CACHE | CACHE_DATA_IMPORTING_REPLICA_CHECK_FAILED | Yes | Checking cache data import replica failed |
+| CACHE | CACHE_DATA_IMPORTING_RESTART_FAILED | Yes | Restarting cache data import failed |
+| CACHE | CACHE_DATA_IMPORTING_SETTING_FAILED | Yes | Setting cache data import failed |
+| CACHE | CACHE_DELETION_START | Yes | Deleting cache started |
+| CACHE | CACHE_DELETION_END | Yes | Deleting cache completed |
+| CACHE | CACHE_DELETION_FAILED | Yes | Deleting cache failed |
+| CACHE | CACHE_DELETION_PROTECTION_DISABLING_START | Yes | Disabling cache deletion protection started |
+| CACHE | CACHE_DELETION_PROTECTION_DISABLING_END | Yes | Disabling cache deletion protection completed |
+| CACHE | CACHE_DELETION_PROTECTION_DISABLING_FAILED | Yes | Disabling cache deletion protection failed |
+| CACHE | CACHE_DELETION_PROTECTION_ENABLING_START | Yes | Cache deletion protection activation started |
+| CACHE | CACHE_DELETION_PROTECTION_ENABLING_END | Yes | Cache deletion protection activation completed |
+| CACHE | CACHE_DELETION_PROTECTION_ENABLING_FAILED | Yes | Cache deletion protection activation failed |
+| CACHE | CACHE_DETAIL_MODIFICATION_START | Yes | Cache detail modification started |
+| CACHE | CACHE_DETAIL_MODIFICATION_END | Yes | Cache detail modification completed |
+| CACHE | CACHE_DETAIL_MODIFICATION_FAILED | Yes | Cache detail modification failed |
+| CACHE | CACHE_FLAVOR_MODIFICATION_START | Yes | Cache specification modification started |
+| CACHE | CACHE_FLAVOR_MODIFICATION_END | Yes | Cache specification modification completed |
+| CACHE | CACHE_FLAVOR_MODIFICATION_FAILED | Yes | Cache specification modification failed |
+| CACHE | CACHE_HIGH_AVAILABILITY_REPAIR_START | Yes | Cache high availability repair started |
+| CACHE | CACHE_HIGH_AVAILABILITY_REPAIR_END | Yes | Cache high availability repair completed |
+| CACHE | CACHE_HIGH_AVAILABILITY_REPAIR_FAILED | Yes | Cache high availability repair failed |
+| CACHE | CACHE_MASTER_ROLE_CHANGING_START | Yes | Cache master role change started |
+| CACHE | CACHE_MASTER_ROLE_CHANGING_END | Yes | Cache master role change completed |
+| CACHE | CACHE_MASTER_ROLE_CHANGING_FAILED | Yes | Cache master role change failed |
+| CACHE | CACHE_MODIFICATION_START | Yes | Cache modification started |
+| CACHE | CACHE_MODIFICATION_END | Yes | Cache modification completed |
+| CACHE | CACHE_MODIFICATION_FAILED | Yes | Cache modification failed |
+| CACHE | CACHE_RESTART_START | Yes | Cache restart started |
+| CACHE | CACHE_RESTART_END | Yes | Cache restart completed |
+| CACHE | CACHE_RESTART_FAILED | Yes | Cache restart failed |
+| CACHE | CACHE_STARTING_START | Yes | Cache starting started |
+| CACHE | CACHE_STARTING_END | Yes | Cache starting completed |
+| CACHE | CACHE_STARTING_FAILED | Yes | Cache starting failed |
+| CACHE | CACHE_STOPPING_START | Yes | Cache stopping started |
+| CACHE | CACHE_STOPPING_END | Yes | Cache stopping Complete |
+| CACHE | CACHE_STOPPING_FAILED | Yes | Cache stopping Failed |
+| CACHE | CACHE_UPGRADE_START | Yes | Cache upgrade Start |
+| CACHE | CACHE_UPGRADE_END | Yes | Cache upgrade Complete |
+| CACHE | CACHE_UPGRADE_FAILED | Yes | Cache upgrade Failed |
+| CACHE | CACHE_UPGRADE_HA_UPGRADE_FAILED | Yes | Cache upgrade HA failed |
+| CACHE | CACHE_UPGRADE_MASTER_UPGRADE_FAILED | Yes | Cache upgrade master failed |
+| CACHE | CACHE_UPGRADE_REPLICA_PROMOTE_FAILED | Yes | Cache upgrade replica promotion failed |
+| CACHE | CACHE_UPGRADE_REPLICA_UPGRADE_FAILED | Yes | Cache upgrade replica failed |
+| CACHE | FAILOVER_DNS_FAILED | No | DNS renewal failed |
+| CACHE | FAILOVER_DNSFAIL | Yes | Failover DNS failed |
+| CACHE | FAILOVER_EXECUTED | Yes | Failover occurred |
+| CACHE | FLOATING_IP_ATTACHING_START | Yes | Floating IP connection started |
+| CACHE | FLOATING_IP_ATTACHING_END | Yes | Floating IP attachment completed |
+| CACHE | FLOATING_IP_ATTACHING_FAILED | Yes | Floating IP attachment failed |
+| CACHE | FLOATING_IP_DETACHING_START | Yes | Floating IP detachment started |
+| CACHE | FLOATING_IP_DETACHING_END | Yes | Floating IP detachment complete |
+| CACHE | FLOATING_IP_DETACHING_FAILED | Yes | Floating IP detachment failed |
+| CACHE | HA_NODE_CREATION_START | Yes | HA node creation started |
+| CACHE | HA_NODE_CREATION_END | Yes | HA node creation completed |
+| CACHE | HA_NODE_CREATION_FAILED | Yes | HA node creation failed |
+| CACHE | HA_NODE_DELETION_START | Yes | HA node deletion start |
+| CACHE | HA_NODE_DELETION_END | Yes | HA node deletion complete |
+| CACHE | NODE_OS_UPGRADE_START | Yes | Node OS upgrade started |
+| CACHE | NODE_OS_UPGRADE_END | Yes | Node OS upgrade complete |
+| CACHE | NODE_OS_UPGRADE_FAILED | Yes | Node OS upgrade failed |
+| CACHE | READONLY_DOMAIN_ATTACHING_START | Yes | Read-only domain attachment started |
+| CACHE | READONLY_DOMAIN_ATTACHING_END | Yes | Read-only domain attachment completed |
+| CACHE | READONLY_DOMAIN_ATTACHING_FAILED | Yes | Read-only domain attachment failed |
+| CACHE | READONLY_DOMAIN_DETACHING_START | Yes | Read-only domain detachment started |
+| CACHE | READONLY_DOMAIN_DETACHING_END | Yes | Read-only domain detachment completed |
+| CACHE | READONLY_DOMAIN_DETACHING_FAILED | Yes | Read-only domain detachment failed |
+| CACHE | READONLY_DOMAIN_UPDATE_START | Yes | Read-only domain update started |
+| CACHE | READONLY_DOMAIN_UPDATE_END | Yes | Read-only domain update completed |
+| CACHE | READONLY_DOMAIN_UPDATE_FAILED | Yes | Read-only domain update failed |
+| CACHE | SENTINEL_CREATION_START | No | Sentinel node creation started |
+| CACHE | SENTINEL_CREATION_END | No | Sentinel node creation completed |
+| CACHE | SENTINEL_CREATION_FAILED | No | Sentinel node creation failed |
+| CACHE | SENTINEL_DELETION_START | No | Sentinel node deletion started |
+| CACHE | SENTINEL_DELETION_END | No | Sentinel node deletion completed |
+| CACHE | SENTINEL_DELETION_FAILED | No | Sentinel node deletion failed |
+| CACHE | SENTINEL_FAILOVER | No | Failover occurred |
+| CACHE | SENTINEL_FAILOVER_DNSFAIL | No | Failover DNS failed |
+| CACHE | SENTINEL_QUORUM_UPDATE_START | Yes | Sentinel quorum update started |
+| CACHE | SENTINEL_QUORUM_UPDATE_END | Yes | Sentinel quorum update completed |
+| CACHE | SENTINEL_QUORUM_UPDATE_FAILED | Yes | Sentinel quorum update failed |
+| CACHE | SLAVE_NODE_PROMOTION_START | Yes | Replica node promotion started |
+| CACHE | SLAVE_NODE_PROMOTION_END | Yes | Replica node promotion completed |
+| CACHE | SLAVE_NODE_PROMOTION_FAILED | Yes | Replica node promotion failed |
+| NODE | NODE_DELETION_START | Yes | Node deletion started |
+| NODE | NODE_DELETION_END | Yes | Node deletion completed |
+| NODE | NODE_DELETION_FAILED | Yes | Node deletion failed |
+| NODE | NODE_DOWN_DETECTED | Yes | Node down |
+| NODE | NODE_FLAVOR_MODIFICATION_START | Yes | Node specification modification started |
+| NODE | NODE_FLAVOR_MODIFICATION_END | Yes | Node specification modification completed |
+| NODE | NODE_FLAVOR_MODIFICATION_FAILED | Yes | Node specification modification failed |
+| NODE | NODE_PLANNED_MIGRATION_START | Yes | Node plan migration started |
+| NODE | NODE_PLANNED_MIGRATION_END | Yes | Node plan migration completed |
+| NODE | NODE_PLANNED_MIGRATION_FAILED | Yes | Node plan migration failed |
+| NODE | NODE_RECOVERED | Yes | Node running |
+| NODE | NODE_UPGRADE_START | Yes | Node engine upgrade started |
+| NODE | NODE_UPGRADE_END | Yes | Node engine upgrade completed |
+| NODE | NODE_UPGRADE_FAILED | Yes | Node engine upgrade failed |
+| NODE | NODE_UPGRADE_DOWNLOAD_FAILED | Yes | Node engine upgrade download failed |
+| NODE | NODE_UPGRADE_PARAMETER_GROUP_UPDATE_FAILED | Yes | Node engine upgrade parameter group update failed |
+| NODE | NODE_UPGRADE_REDIS_N_SENTINEL_START_FAILED | Yes | Node engine upgrade Redis and Sentinel start failed |
+| NODE | NODE_UPGRADE_REDIS_N_SENTINEL_STOP_FAILED | Yes | Node engine upgrade Redis and Sentinel stop failed |
+| NODE | NODE_UPGRADE_REDIS_UPGRADE_FAILED | Yes | Node engine upgrade Redis upgrade failed |
+| NODE | NODE_UPGRADE_REPLICA_CHECK_FAILED | Yes | Node engine upgrade replica check failed |
+| NODE | NODE_UPGRADE_RPM_DELETE_FAILED | Yes | Node Engine Upgrade RPM deletion failed |
+| NODE | NODE_UPGRADE_SENTINEL_START_FAILED | Yes | Node Engine Upgrade Sentinel start failed |
+| NODE | NODE_UPGRADE_SENTINEL_STOP_FAILED | Yes | Node Engine Upgrade Sentinel stop failed |
+| NODE | SLAVE_NODE_CREATION_START | Yes | Replica node creation started |
+| NODE | SLAVE_NODE_CREATION_END | Yes | Replica node creation completed |
+| NODE | SLAVE_NODE_CREATION_FAILED | Yes | Replica node creation failed |
+| NODE | STATUS_CHANGED_DISABLED | No | Disabled |
+| NODE | STATUS_CHANGED_ENABLED | No | Enabled |
+| DB_SECURITY_GROUP | DB_SECURITY_GROUP_CREATION_START | No | DB Security Group Creation started |
+| DB_SECURITY_GROUP | DB_SECURITY_GROUP_CREATION_END | No | DB Security Group Creation completed |
+| DB_SECURITY_GROUP | DB_SECURITY_GROUP_CREATION_FAILED | No | DB Security Group Creation failed |
+| DB_SECURITY_GROUP | DB_SECURITY_GROUP_DELETION_START | No | DB Security Group Deletion started |
+| DB_SECURITY_GROUP | DB_SECURITY_GROUP_DELETION_END | No | DB Security Group Deletion completed |
+| DB_SECURITY_GROUP | DB_SECURITY_GROUP_DELETION_FAILED | No | DB Security Group Deletion failed |
+| DB_SECURITY_GROUP | DB_SECURITY_GROUP_MODIFICATION_START | No | DB Security Group Modification started |
+| DB_SECURITY_GROUP | DB_SECURITY_GROUP_MODIFICATION_END | No | DB Security Group Modification completed |
+| DB_SECURITY_GROUP | DB_SECURITY_GROUP_MODIFICATION_FAILED | No | DB Security Group Modification failed |
+| DB_SECURITY_GROUP | DB_SECURITY_GROUP_RULE_CREATION_START | No | DB Security Group Rule Creation started |
+| DB_SECURITY_GROUP | DB_SECURITY_GROUP_RULE_CREATION_END | No | DB Security Group Rule Creation completed |
+| DB_SECURITY_GROUP | DB_SECURITY_GROUP_RULE_CREATION_FAILED | No | DB Security Group Rule Creation failed |
+| DB_SECURITY_GROUP | DB_SECURITY_GROUP_RULE_DELETION_START | No | DB Security Group Rule Deletion started |
+| DB_SECURITY_GROUP | DB_SECURITY_GROUP_RULE_DELETION_END | No | DB Security Group Rule Deletion completed |
+| DB_SECURITY_GROUP | DB_SECURITY_GROUP_RULE_DELETION_FAILED | No | DB Security Group Rule Deletion failed |
+| DB_SECURITY_GROUP | DB_SECURITY_GROUP_RULE_MODIFICATION_START | No | DB Security Group Rule Modification started |
+| DB_SECURITY_GROUP | DB_SECURITY_GROUP_RULE_MODIFICATION_END | No | DB Security Group Rule Modification completed |
+| DB_SECURITY_GROUP | DB_SECURITY_GROUP_RULE_MODIFICATION_FAILED | No | DB security group rule modification failed |
+| PARAMETER_GROUP | PARAMETER_GROUP_CREATION_START | No | Parameter group creation started |
+| PARAMETER_GROUP | PARAMETER_GROUP_CREATION_END | No | Parameter group creation completed |
+| PARAMETER_GROUP | PARAMETER_GROUP_CREATION_FAILED | No | Parameter group creation failed |
+| PARAMETER_GROUP | PARAMETER_GROUP_DELETION_START | No | Parameter group deletion started |
+| PARAMETER_GROUP | PARAMETER_GROUP_DELETION_END | No | Parameter group deletion completed |
+| PARAMETER_GROUP | PARAMETER_GROUP_DELETION_FAILED | No | Parameter group deletion failed |
+| MONITORING | METRIC_ALARM_TRIGGERED | Yes | Monitoring alarm triggered |
+
+* Deprecated Event Codes
+
+| Event type | Event code | Subscribable | Description |
 | - | - | - | - |
-| CACHE | APPLY_LATEST_PARAMETER_GROUP_START | 예 | 최신 파라미터 그룹 적용 시작 |
-| CACHE | APPLY_LATEST_PARAMETER_GROUP_END | 예 | 최신 파라미터 그룹 적용 완료 |
-| CACHE | APPLY_LATEST_PARAMETER_GROUP_FAILED | 예 | 최신 파라미터 그룹 적용 실패 |
-| CACHE | AUTO_BACKUP_ACTIVATION_START | 예 | 자동 백업 활성화 시작 |
-| CACHE | AUTO_BACKUP_ACTIVATION_END | 예 | 자동 백업 활성화 완료 |
-| CACHE | AUTO_BACKUP_ACTIVATION_FAILED | 예 | 자동 백업 활성화 실패 |
-| CACHE | AUTO_BACKUP_DEACTIVATION_START | 예 | 자동 백업 비활성화 시작 |
-| CACHE | AUTO_BACKUP_DEACTIVATION_END | 예 | 자동 백업 비활성화 완료 |
-| CACHE | AUTO_BACKUP_DEACTIVATION_FAILED | 예 | 자동 백업 비활성화 실패 |
-| CACHE | BACKUP_START | 예 | 백업 시작 |
-| CACHE | BACKUP_END | 예 | 백업 완료 |
-| CACHE | BACKUP_FAILED | 예 | 백업 실패 |
-| CACHE | BACKUP_MIGRATE_START | 아니오 | 백업 마이그레이션 시작 |
-| CACHE | BACKUP_MIGRATE_END | 아니오 | 백업 마이그레이션 완료 |
-| CACHE | BACKUP_MIGRATE_DOWNLOAD_FAILED | 아니오 | 백업 마이그레이션 다운로드 실패 |
-| CACHE | BACKUP_MIGRATE_RDB_CHECK_FAILED | 아니오 | 백업 마이그레이션 RDB 체크 실패 |
-| CACHE | BACKUP_MIGRATE_RDB_CHECKSUM_FAILED | 아니오 | 백업 마이그레이션 RDB 체크섬 실패 |
-| CACHE | BACKUP_MIGRATE_RDB_MEMORY_FAILED | 아니오 | 백업 마이그레이션 RDB 메모리 실패 |
-| CACHE | BACKUP_MIGRATE_RDB_TYPE_FAILED | 아니오 | 백업 마이그레이션 RDB 타입 실패 |
-| CACHE | BACKUP_MIGRATE_RDB_VERSION_FAILED | 아니오 | 백업 마이그레이션 RDB 버전 실패 |
-| CACHE | BACKUP_MIGRATE_REPLICA_CHECK_FAILED | 아니오 | 백업 마이그레이션 복제본 체크 실패 |
-| CACHE | BACKUP_MIGRATE_RESTART_FAILED | 아니오 | 백업 마이그레이션 재시작 실패 |
-| CACHE | BACKUP_RESTORE_EXISTING_CACHE_START | 예 | 기존 캐시로 백업 복원 시작 |
-| CACHE | BACKUP_RESTORE_EXISTING_CACHE_END | 예 | 기존 캐시로 백업 복원 완료 |
-| CACHE | BACKUP_RESTORE_EXISTING_CACHE_FAILED | 예 | 기존 캐시로 백업 복원 실패 |
-| CACHE | BACKUP_RESTORE_EXISTING_CACHE_DOWNLOAD_FAILED | 예 | 기존 캐시로 백업 복원 다운로드 실패 |
-| CACHE | BACKUP_RESTORE_EXISTING_CACHE_RDB_CHECK_FAILED | 예 | 기존 캐시로 백업 복원 RDB 체크 실패 |
-| CACHE | BACKUP_RESTORE_EXISTING_CACHE_RDB_CHECKSUM_FAILED | 예 | 기존 캐시로 백업 복원 RDB 체크섬 실패 |
-| CACHE | BACKUP_RESTORE_EXISTING_CACHE_RDB_MEMORY_FAILED | 예 | 기존 캐시로 백업 복원 RDB 메모리 실패 |
-| CACHE | BACKUP_RESTORE_EXISTING_CACHE_RDB_TYPE_FAILED | 예 | 기존 캐시로 백업 복원 RDB 타입 실패 |
-| CACHE | BACKUP_RESTORE_EXISTING_CACHE_RDB_VERSION_FAILED | 예 | 기존 캐시로 백업 복원 RDB 버전 실패 |
-| CACHE | BACKUP_RESTORE_EXISTING_CACHE_REPLICA_CHECK_FAILED | 예 | 기존 캐시로 백업 복원 복제본 체크 실패 |
-| CACHE | BACKUP_RESTORE_EXISTING_CACHE_RESTART_FAILED | 예 | 기존 캐시로 백업 복원 재시작 실패 |
-| CACHE | BACKUP_RESTORE_NEW_CACHE_START | 예 | 신규 캐시로 백업 복원 시작 |
-| CACHE | BACKUP_RESTORE_NEW_CACHE_END | 예 | 신규 캐시로 백업 복원 완료 |
-| CACHE | BACKUP_RESTORE_NEW_CACHE_FAILED | 예 | 신규 캐시로 백업 복원 실패 |
-| CACHE | CACHE_CERTIFICATE_UPDATE_START | 예 | 캐시 인증서 갱신 시작 |
-| CACHE | CACHE_CERTIFICATE_UPDATE_END | 예 | 캐시 인증서 갱신 완료 |
-| CACHE | CACHE_CERTIFICATE_UPDATE_FAILED | 예 | 캐시 인증서 갱신 실패 |
-| CACHE | CACHE_CREATION_START | 예 | 캐시 생성 시작 |
-| CACHE | CACHE_CREATION_END | 예 | 캐시 생성 완료 |
-| CACHE | CACHE_CREATION_FAILED | 예 | 캐시 생성 실패 |
-| CACHE | CACHE_DATA_EXPORTING_START | 예 | 캐시 데이터 내보내기 시작 |
-| CACHE | CACHE_DATA_EXPORTING_END | 예 | 캐시 데이터 내보내기 완료 |
-| CACHE | CACHE_DATA_EXPORTING_FAILED | 예 | 캐시 데이터 내보내기 실패 |
-| CACHE | CACHE_DATA_EXPORTING_RDB_CREATE_FAILED | 예 | 캐시 데이터 내보내기 RDB 생성 실패 |
-| CACHE | CACHE_DATA_EXPORTING_SETTING_FAILED | 예 | 캐시 데이터 내보내기 설정 실패 |
-| CACHE | CACHE_DATA_EXPORTING_UPLOAD_FAILED | 예 | 캐시 데이터 내보내기 업로드 실패 |
-| CACHE | CACHE_DATA_IMPORTING_START | 예 | 캐시 데이터 가져오기 시작 |
-| CACHE | CACHE_DATA_IMPORTING_END | 예 | 캐시 데이터 가져오기 완료 |
-| CACHE | CACHE_DATA_IMPORTING_FAILED | 예 | 캐시 데이터 가져오기 실패 |
-| CACHE | CACHE_DATA_IMPORTING_DOWNLOAD_FAILED | 예 | 캐시 데이터 가져오기 다운로드 실패 |
-| CACHE | CACHE_DATA_IMPORTING_RDB_CHECK_FAILED | 예 | 캐시 데이터 가져오기 RDB 체크 실패 |
-| CACHE | CACHE_DATA_IMPORTING_RDB_CHECKSUM_FAILED | 예 | 캐시 데이터 가져오기 RDB 체크섬 실패 |
-| CACHE | CACHE_DATA_IMPORTING_RDB_MEMORY_FAILED | 예 | 캐시 데이터 가져오기 RDB 메모리 실패 |
-| CACHE | CACHE_DATA_IMPORTING_RDB_TYPE_FAILED | 예 | 캐시 데이터 가져오기 RDB 타입 실패 |
-| CACHE | CACHE_DATA_IMPORTING_RDB_VERSION_FAILED | 예 | 캐시 데이터 가져오기 RDB 버전 실패 |
-| CACHE | CACHE_DATA_IMPORTING_REPLICA_CHECK_FAILED | 예 | 캐시 데이터 가져오기 복제본 체크 실패 |
-| CACHE | CACHE_DATA_IMPORTING_RESTART_FAILED | 예 | 캐시 데이터 가져오기 재시작 실패 |
-| CACHE | CACHE_DATA_IMPORTING_SETTING_FAILED | 예 | 캐시 데이터 가져오기 설정 실패 |
-| CACHE | CACHE_DELETION_START | 예 | 캐시 삭제 시작 |
-| CACHE | CACHE_DELETION_END | 예 | 캐시 삭제 완료 |
-| CACHE | CACHE_DELETION_FAILED | 예 | 캐시 삭제 실패 |
-| CACHE | CACHE_DELETION_PROTECTION_DISABLING_START | 예 | 캐시 삭제 보호 비활성화 시작 |
-| CACHE | CACHE_DELETION_PROTECTION_DISABLING_END | 예 | 캐시 삭제 보호 비활성화 완료 |
-| CACHE | CACHE_DELETION_PROTECTION_DISABLING_FAILED | 예 | 캐시 삭제 보호 비활성화 실패 |
-| CACHE | CACHE_DELETION_PROTECTION_ENABLING_START | 예 | 캐시 삭제 보호 활성화 시작 |
-| CACHE | CACHE_DELETION_PROTECTION_ENABLING_END | 예 | 캐시 삭제 보호 활성화 완료 |
-| CACHE | CACHE_DELETION_PROTECTION_ENABLING_FAILED | 예 | 캐시 삭제 보호 활성화 실패 |
-| CACHE | CACHE_DETAIL_MODIFICATION_START | 예 | 캐시 상세 수정 시작 |
-| CACHE | CACHE_DETAIL_MODIFICATION_END | 예 | 캐시 상세 수정 완료 |
-| CACHE | CACHE_DETAIL_MODIFICATION_FAILED | 예 | 캐시 상세 수정 실패 |
-| CACHE | CACHE_FLAVOR_MODIFICATION_START | 예 | 캐시 사양 변경 시작 |
-| CACHE | CACHE_FLAVOR_MODIFICATION_END | 예 | 캐시 사양 변경 완료 |
-| CACHE | CACHE_FLAVOR_MODIFICATION_FAILED | 예 | 캐시 사양 변경 실패 |
-| CACHE | CACHE_HIGH_AVAILABILITY_REPAIR_START | 예 | 캐시 고가용성 복구 시작 |
-| CACHE | CACHE_HIGH_AVAILABILITY_REPAIR_END | 예 | 캐시 고가용성 복구 완료 |
-| CACHE | CACHE_HIGH_AVAILABILITY_REPAIR_FAILED | 예 | 캐시 고가용성 복구 실패 |
-| CACHE | CACHE_MASTER_ROLE_CHANGING_START | 예 | 캐시 마스터 역할 변경 시작 |
-| CACHE | CACHE_MASTER_ROLE_CHANGING_END | 예 | 캐시 마스터 역할 변경 완료 |
-| CACHE | CACHE_MASTER_ROLE_CHANGING_FAILED | 예 | 캐시 마스터 역할 변경 실패 |
-| CACHE | CACHE_MODIFICATION_START | 예 | 캐시 수정 시작 |
-| CACHE | CACHE_MODIFICATION_END | 예 | 캐시 수정 완료 |
-| CACHE | CACHE_MODIFICATION_FAILED | 예 | 캐시 수정 실패 |
-| CACHE | CACHE_RESTART_START | 예 | 캐시 재시작 시작 |
-| CACHE | CACHE_RESTART_END | 예 | 캐시 재시작 완료 |
-| CACHE | CACHE_RESTART_FAILED | 예 | 캐시 재시작 실패 |
-| CACHE | CACHE_STARTING_START | 예 | 캐시 시작 시작 |
-| CACHE | CACHE_STARTING_END | 예 | 캐시 시작 완료 |
-| CACHE | CACHE_STARTING_FAILED | 예 | 캐시 시작 실패 |
-| CACHE | CACHE_STOPPING_START | 예 | 캐시 중지 시작 |
-| CACHE | CACHE_STOPPING_END | 예 | 캐시 중지 완료 |
-| CACHE | CACHE_STOPPING_FAILED | 예 | 캐시 중지 실패 |
-| CACHE | CACHE_UPGRADE_START | 예 | 캐시 업그레이드 시작 |
-| CACHE | CACHE_UPGRADE_END | 예 | 캐시 업그레이드 완료 |
-| CACHE | CACHE_UPGRADE_FAILED | 예 | 캐시 업그레이드 실패 |
-| CACHE | CACHE_UPGRADE_HA_UPGRADE_FAILED | 예 | 캐시 업그레이드 HA 실패 |
-| CACHE | CACHE_UPGRADE_MASTER_UPGRADE_FAILED | 예 | 캐시 업그레이드 마스터 실패 |
-| CACHE | CACHE_UPGRADE_REPLICA_PROMOTE_FAILED | 예 | 캐시 업그레이드 복제본 승격 실패 |
-| CACHE | CACHE_UPGRADE_REPLICA_UPGRADE_FAILED | 예 | 캐시 업그레이드 복제본 실패 |
-| CACHE | FAILOVER_DNS_FAILED | 아니오 | DNS 갱신 실패 |
-| CACHE | FAILOVER_DNSFAIL | 예 | 장애 조치 DNS 실패 |
-| CACHE | FAILOVER_EXECUTED | 예 | 장애 조치 발생 |
-| CACHE | FLOATING_IP_ATTACHING_START | 예 | 플로팅 IP 연결 시작 |
-| CACHE | FLOATING_IP_ATTACHING_END | 예 | 플로팅 IP 연결 완료 |
-| CACHE | FLOATING_IP_ATTACHING_FAILED | 예 | 플로팅 IP 연결 실패 |
-| CACHE | FLOATING_IP_DETACHING_START | 예 | 플로팅 IP 해제 시작 |
-| CACHE | FLOATING_IP_DETACHING_END | 예 | 플로팅 IP 해제 완료 |
-| CACHE | FLOATING_IP_DETACHING_FAILED | 예 | 플로팅 IP 해제 실패 |
-| CACHE | HA_NODE_CREATION_START | 예 | HA 노드 생성 시작 |
-| CACHE | HA_NODE_CREATION_END | 예 | HA 노드 생성 완료 |
-| CACHE | HA_NODE_CREATION_FAILED | 예 | HA 노드 생성 실패 |
-| CACHE | HA_NODE_DELETION_START | 예 | HA 노드 삭제 시작 |
-| CACHE | HA_NODE_DELETION_END | 예 | HA 노드 삭제 완료 |
-| CACHE | NODE_OS_UPGRADE_START | 예 | 노드 OS 업그레이드 시작 |
-| CACHE | NODE_OS_UPGRADE_END | 예 | 노드 OS 업그레이드 완료 |
-| CACHE | NODE_OS_UPGRADE_FAILED | 예 | 노드 OS 업그레이드 실패 |
-| CACHE | READONLY_DOMAIN_ATTACHING_START | 예 | 읽기 전용 도메인 연결 시작 |
-| CACHE | READONLY_DOMAIN_ATTACHING_END | 예 | 읽기 전용 도메인 연결 완료 |
-| CACHE | READONLY_DOMAIN_ATTACHING_FAILED | 예 | 읽기 전용 도메인 연결 실패 |
-| CACHE | READONLY_DOMAIN_DETACHING_START | 예 | 읽기 전용 도메인 해제 시작 |
-| CACHE | READONLY_DOMAIN_DETACHING_END | 예 | 읽기 전용 도메인 해제 완료 |
-| CACHE | READONLY_DOMAIN_DETACHING_FAILED | 예 | 읽기 전용 도메인 해제 실패 |
-| CACHE | READONLY_DOMAIN_UPDATE_START | 예 | 읽기 전용 도메인 업데이트 시작 |
-| CACHE | READONLY_DOMAIN_UPDATE_END | 예 | 읽기 전용 도메인 업데이트 완료 |
-| CACHE | READONLY_DOMAIN_UPDATE_FAILED | 예 | 읽기 전용 도메인 업데이트 실패 |
-| CACHE | SENTINEL_CREATION_START | 아니오 | 센티넬 노드 생성 시작 |
-| CACHE | SENTINEL_CREATION_END | 아니오 | 센티넬 노드 생성 완료 |
-| CACHE | SENTINEL_CREATION_FAILED | 아니오 | 센티넬 노드 생성 실패 |
-| CACHE | SENTINEL_DELETION_START | 아니오 | 센티넬 노드 삭제 시작 |
-| CACHE | SENTINEL_DELETION_END | 아니오 | 센티넬 노드 삭제 완료 |
-| CACHE | SENTINEL_DELETION_FAILED | 아니오 | 센티넬 노드 삭제 실패 |
-| CACHE | SENTINEL_FAILOVER | 아니오 | 장애 조치 발생 |
-| CACHE | SENTINEL_FAILOVER_DNSFAIL | 아니오 | 장애 조치 DNS 실패 |
-| CACHE | SENTINEL_QUORUM_UPDATE_START | 예 | 센티넬 쿼럼 업데이트 시작 |
-| CACHE | SENTINEL_QUORUM_UPDATE_END | 예 | 센티넬 쿼럼 업데이트 완료 |
-| CACHE | SENTINEL_QUORUM_UPDATE_FAILED | 예 | 센티넬 쿼럼 업데이트 실패 |
-| CACHE | SLAVE_NODE_PROMOTION_START | 예 | 슬레이브 노드 승격 시작 |
-| CACHE | SLAVE_NODE_PROMOTION_END | 예 | 슬레이브 노드 승격 완료 |
-| CACHE | SLAVE_NODE_PROMOTION_FAILED | 예 | 슬레이브 노드 승격 실패 |
-| NODE | NODE_DELETION_START | 예 | 노드 삭제 시작 |
-| NODE | NODE_DELETION_END | 예 | 노드 삭제 완료 |
-| NODE | NODE_DELETION_FAILED | 예 | 노드 삭제 실패 |
-| NODE | NODE_DOWN_DETECTED | 예 | 노드 중지됨 |
-| NODE | NODE_FLAVOR_MODIFICATION_START | 예 | 노드 사양 변경 시작 |
-| NODE | NODE_FLAVOR_MODIFICATION_END | 예 | 노드 사양 변경 완료 |
-| NODE | NODE_FLAVOR_MODIFICATION_FAILED | 예 | 노드 사양 변경 실패 |
-| NODE | NODE_PLANNED_MIGRATION_START | 예 | 노드 플랜드 마이그레이션 시작 |
-| NODE | NODE_PLANNED_MIGRATION_END | 예 | 노드 플랜드 마이그레이션 완료 |
-| NODE | NODE_PLANNED_MIGRATION_FAILED | 예 | 노드 플랜드 마이그레이션 실패 |
-| NODE | NODE_RECOVERED | 예 | 노드 실행 중 |
-| NODE | NODE_UPGRADE_START | 예 | 노드 엔진 업그레이드 시작 |
-| NODE | NODE_UPGRADE_END | 예 | 노드 엔진 업그레이드 완료 |
-| NODE | NODE_UPGRADE_FAILED | 예 | 노드 엔진 업그레이드 실패 |
-| NODE | NODE_UPGRADE_DOWNLOAD_FAILED | 예 | 노드 엔진 업그레이드 다운로드 실패 |
-| NODE | NODE_UPGRADE_PROFILE_UPDATE_FAILED | 예 | 노드 엔진 업그레이드 파라미터 그룹 업데이트 실패 |
-| NODE | NODE_UPGRADE_REDIS_N_SENTINEL_START_FAILED | 예 | 노드 엔진 업그레이드 서비스 시작 실패 |
-| NODE | NODE_UPGRADE_REDIS_N_SENTINEL_STOP_FAILED | 예 | 노드 엔진 업그레이드 서비스 중지 실패 |
-| NODE | NODE_UPGRADE_REDIS_UPGRADE_FAILED | 예 | 노드 엔진 업그레이드 Redis 업그레이드 실패 |
-| NODE | NODE_UPGRADE_REPLICA_CHECK_FAILED | 예 | 노드 엔진 업그레이드 복제본 체크 실패 |
-| NODE | NODE_UPGRADE_RPM_DELETE_FAILED | 예 | 노드 엔진 업그레이드 RPM 삭제 실패 |
-| NODE | NODE_UPGRADE_SENTINEL_START_FAILED | 예 | 노드 엔진 업그레이드 센티넬 시작 실패 |
-| NODE | NODE_UPGRADE_SENTINEL_STOP_FAILED | 예 | 노드 엔진 업그레이드 센티넬 중지 실패 |
-| NODE | SENTINEL_INSTANCE_RUNNING | 아니오 | 인스턴스 실행 |
-| NODE | SENTINEL_INSTANCE_STOPPED | 아니오 | 인스턴스 중지됨 |
-| NODE | SLAVE_NODE_CREATION_START | 예 | 복제 노드 생성 시작 |
-| NODE | SLAVE_NODE_CREATION_END | 예 | 복제 노드 생성 완료 |
-| NODE | SLAVE_NODE_CREATION_FAILED | 예 | 복제 노드 생성 실패 |
-| NODE | STATUS_CHANGED_DISABLED | 아니오 | 비활성화 |
-| NODE | STATUS_CHANGED_ENABLED | 아니오 | 활성화 |
-| DB_SECURITY_GROUP | DB_SECURITY_GROUP_CREATION_START | 아니오 | DB 보안 그룹 생성 시작 |
-| DB_SECURITY_GROUP | DB_SECURITY_GROUP_CREATION_END | 아니오 | DB 보안 그룹 생성 완료 |
-| DB_SECURITY_GROUP | DB_SECURITY_GROUP_CREATION_FAILED | 아니오 | DB 보안 그룹 생성 실패 |
-| DB_SECURITY_GROUP | DB_SECURITY_GROUP_DELETION_START | 아니오 | DB 보안 그룹 삭제 시작 |
-| DB_SECURITY_GROUP | DB_SECURITY_GROUP_DELETION_END | 아니오 | DB 보안 그룹 삭제 완료 |
-| DB_SECURITY_GROUP | DB_SECURITY_GROUP_DELETION_FAILED | 아니오 | DB 보안 그룹 삭제 실패 |
-| DB_SECURITY_GROUP | DB_SECURITY_GROUP_MODIFICATION_START | 아니오 | DB 보안 그룹 수정 시작 |
-| DB_SECURITY_GROUP | DB_SECURITY_GROUP_MODIFICATION_END | 아니오 | DB 보안 그룹 수정 완료 |
-| DB_SECURITY_GROUP | DB_SECURITY_GROUP_MODIFICATION_FAILED | 아니오 | DB 보안 그룹 수정 실패 |
-| DB_SECURITY_GROUP | DB_SECURITY_GROUP_RULE_CREATION_START | 아니오 | DB 보안 그룹 룰 생성 시작 |
-| DB_SECURITY_GROUP | DB_SECURITY_GROUP_RULE_CREATION_END | 아니오 | DB 보안 그룹 룰 생성 완료 |
-| DB_SECURITY_GROUP | DB_SECURITY_GROUP_RULE_CREATION_FAILED | 아니오 | DB 보안 그룹 룰 생성 실패 |
-| DB_SECURITY_GROUP | DB_SECURITY_GROUP_RULE_DELETION_START | 아니오 | DB 보안 그룹 룰 삭제 시작 |
-| DB_SECURITY_GROUP | DB_SECURITY_GROUP_RULE_DELETION_END | 아니오 | DB 보안 그룹 룰 삭제 완료 |
-| DB_SECURITY_GROUP | DB_SECURITY_GROUP_RULE_DELETION_FAILED | 아니오 | DB 보안 그룹 룰 삭제 실패 |
-| DB_SECURITY_GROUP | DB_SECURITY_GROUP_RULE_MODIFICATION_START | 아니오 | DB 보안 그룹 룰 수정 시작 |
-| DB_SECURITY_GROUP | DB_SECURITY_GROUP_RULE_MODIFICATION_END | 아니오 | DB 보안 그룹 룰 수정 완료 |
-| DB_SECURITY_GROUP | DB_SECURITY_GROUP_RULE_MODIFICATION_FAILED | 아니오 | DB 보안 그룹 룰 수정 실패 |
-| PARAMETER_GROUP | PROFILE_UPDATE_START | 아니오 | 프로필 업데이트 시작 |
-| PARAMETER_GROUP | PROFILE_UPDATE_END | 아니오 | 프로필 업데이트 완료 |
-| PARAMETER_GROUP | PROFILE_UPDATE_FAILED | 아니오 | 프로필 업데이트 실패 |
-| MONITORING | METRIC_ALARM_TRIGGERED | 예 | 모니터링 알람 발생 |
-
-* 기록은 남아 있으나 더 이상 새로 생성하지 않는 이벤트 코드
-
-| 이벤트 유형 | 이벤트 코드 | 구독 가능 여부 | 설명 |
-| - | - | - | - |
-| CACHE | GROUP_CERTIFICATE_UPDATE_START | 아니오 | 그룹 인증서 갱신 시작 |
-| CACHE | GROUP_CERTIFICATE_UPDATE_END | 아니오 | 그룹 인증서 갱신 완료 |
-| CACHE | GROUP_CERTIFICATE_UPDATE_FAILED | 아니오 | 그룹 인증서 갱신 실패 |
-| CACHE | GROUP_CREATION_START | 아니오 | 그룹 생성 시작 |
-| CACHE | GROUP_CREATION_END | 아니오 | 그룹 생성 완료 |
-| CACHE | GROUP_CREATION_FAILED | 아니오 | 그룹 생성 실패 |
-| CACHE | GROUP_DATA_EXPORTING_START | 아니오 | 그룹 데이터 내보내기 시작 |
-| CACHE | GROUP_DATA_EXPORTING_END | 아니오 | 그룹 데이터 내보내기 완료 |
-| CACHE | GROUP_DATA_EXPORTING_FAILED | 아니오 | 그룹 데이터 내보내기 실패 |
-| CACHE | GROUP_DATA_EXPORTING_RDB_CREATE_FAILED | 아니오 | 그룹 데이터 내보내기 RDB 생성 실패 |
-| CACHE | GROUP_DATA_EXPORTING_SETTING_FAILED | 아니오 | 그룹 데이터 내보내기 설정 실패 |
-| CACHE | GROUP_DATA_EXPORTING_UPLOAD_FAILED | 아니오 | 그룹 데이터 내보내기 업로드 실패 |
-| CACHE | GROUP_DATA_IMPORTING_START | 아니오 | 그룹 데이터 가져오기 시작 |
-| CACHE | GROUP_DATA_IMPORTING_END | 아니오 | 그룹 데이터 가져오기 완료 |
-| CACHE | GROUP_DATA_IMPORTING_DOWNLOAD_FAILED | 아니오 | 그룹 데이터 가져오기 다운로드 실패 |
-| CACHE | GROUP_DATA_IMPORTING_RDB_CHECK_FAILED | 아니오 | 그룹 데이터 가져오기 RDB 체크 실패 |
-| CACHE | GROUP_DATA_IMPORTING_RDB_CHECKSUM_FAILED | 아니오 | 그룹 데이터 가져오기 RDB 체크섬 실패 |
-| CACHE | GROUP_DATA_IMPORTING_RDB_MEMORY_FAILED | 아니오 | 그룹 데이터 가져오기 RDB 메모리 실패 |
-| CACHE | GROUP_DATA_IMPORTING_RDB_TYPE_FAILED | 아니오 | 그룹 데이터 가져오기 RDB 타입 실패 |
-| CACHE | GROUP_DATA_IMPORTING_RDB_VERSION_FAILED | 아니오 | 그룹 데이터 가져오기 RDB 버전 실패 |
-| CACHE | GROUP_DATA_IMPORTING_REPLICA_CHECK_FAILED | 아니오 | 그룹 데이터 가져오기 복제본 체크 실패 |
-| CACHE | GROUP_DATA_IMPORTING_RESTART_FAILED | 아니오 | 그룹 데이터 가져오기 재시작 실패 |
-| CACHE | GROUP_DATA_IMPORTING_SETTING_FAILED | 아니오 | 그룹 데이터 가져오기 설정 실패 |
-| CACHE | GROUP_DELETION_START | 아니오 | 그룹 삭제 시작 |
-| CACHE | GROUP_DELETION_END | 아니오 | 그룹 삭제 완료 |
-| CACHE | GROUP_DELETION_FAILED | 아니오 | 그룹 삭제 실패 |
-| CACHE | GROUP_FLAVOR_MODIFICATION_START | 아니오 | 그룹 사양 변경 시작 |
-| CACHE | GROUP_FLAVOR_MODIFICATION_END | 아니오 | 그룹 사양 변경 완료 |
-| CACHE | GROUP_FLAVOR_MODIFICATION_FAILED | 아니오 | 그룹 사양 변경 실패 |
-| CACHE | GROUP_MODIFICATION_START | 아니오 | 그룹 수정 시작 |
-| CACHE | GROUP_MODIFICATION_END | 아니오 | 그룹 수정 완료 |
-| CACHE | GROUP_MODIFICATION_FAILED | 아니오 | 그룹 수정 실패 |
-| CACHE | GROUP_RESTART_START | 아니오 | 그룹 재시작 시작 |
-| CACHE | GROUP_RESTART_END | 아니오 | 그룹 재시작 완료 |
-| CACHE | GROUP_RESTART_FAILED | 아니오 | 그룹 재시작 실패 |
-| CACHE | GROUP_UPGRADE_START | 아니오 | 그룹 업그레이드 시작 |
-| CACHE | GROUP_UPGRADE_END | 아니오 | 그룹 업그레이드 완료 |
-| CACHE | GROUP_UPGRADE_FAILED | 아니오 | 그룹 업그레이드 실패 |
-| CACHE | GROUP_UPGRADE_HA_UPGRADE_FAILED | 아니오 | 그룹 업그레이드 HA 실패 |
-| CACHE | GROUP_UPGRADE_MASTER_UPGRADE_FAILED | 아니오 | 그룹 업그레이드 마스터 실패 |
-| CACHE | GROUP_UPGRADE_REPLICA_PROMOTE_FAILED | 아니오 | 그룹 업그레이드 복제본 승격 실패 |
-| CACHE | GROUP_UPGRADE_REPLICA_UPGRADE_FAILED | 아니오 | 그룹 업그레이드 복제본 실패 |
+| CACHE | GROUP_CERTIFICATE_UPDATE_START | No | Group certificate renewal started |
+| CACHE | GROUP_CERTIFICATE_UPDATE_END | No | Group certificate renewal completed |
+| CACHE | GROUP_CERTIFICATE_UPDATE_FAILED | No | Group certificate renewal failed |
+| CACHE | GROUP_CREATION_START | No | Group creation started |
+| CACHE | GROUP_CREATION_END | No | Group creation completed |
+| CACHE | GROUP_CREATION_FAILED | No | Group creation failed |
+| CACHE | GROUP_DATA_EXPORTING_START | No | Group data export started |
+| CACHE | GROUP_DATA_EXPORTING_END | No | Group data export completed |
+| CACHE | GROUP_DATA_EXPORTING_FAILED | No | Group data export failed |
+| CACHE | GROUP_DATA_EXPORTING_RDB_CREATE_FAILED | No | Group data export RDB creation failed |
+| CACHE | GROUP_DATA_EXPORTING_SETTING_FAILED | No | Group data export setup failed |
+| CACHE | GROUP_DATA_EXPORTING_UPLOAD_FAILED | No | Group data export upload failed |
+| CACHE | GROUP_DATA_IMPORTING_START | No | Group data import start |
+| CACHE | GROUP_DATA_IMPORTING_END | No | Group data import complete |
+| CACHE | GROUP_DATA_IMPORTING_DOWNLOAD_FAILED | No | Group data import download failed |
+| CACHE | GROUP_DATA_IMPORTING_RDB_CHECK_FAILED | No | Group data import RDB check failed |
+| CACHE | GROUP_DATA_IMPORTING_RDB_CHECKSUM_FAILED | No | Group data import RDB checksum failed |
+| CACHE | GROUP_DATA_IMPORTING_RDB_MEMORY_FAILED | No | Group data import RDB memory failed |
+| CACHE | GROUP_DATA_IMPORTING_RDB_TYPE_FAILED | No | Group data import RDB type failed |
+| CACHE | GROUP_DATA_IMPORTING_RDB_VERSION_FAILED | No | Group data import RDB version failed |
+| CACHE | GROUP_DATA_IMPORTING_REPLICA_CHECK_FAILED | No | Group data import replica check failed |
+| CACHE | GROUP_DATA_IMPORTING_RESTART_FAILED | No | Group data import restart failed |
+| CACHE | GROUP_DATA_IMPORTING_SETTING_FAILED | No | Setting up group data import failed |
+| CACHE | GROUP_DELETION_START | No | Group deletion started |
+| CACHE | GROUP_DELETION_END | No | Group deletion completed |
+| CACHE | GROUP_DELETION_FAILED | No | Group deletion failed |
+| CACHE | GROUP_FLAVOR_MODIFICATION_START | No | Group specification modification started |
+| CACHE | GROUP_FLAVOR_MODIFICATION_END | No | Group specification modification completed |
+| CACHE | GROUP_FLAVOR_MODIFICATION_FAILED | No | Group specification modification failed |
+| CACHE | GROUP_MODIFICATION_START | No | Group modification started |
+| CACHE | GROUP_MODIFICATION_END | No | Group modification completed |
+| CACHE | GROUP_MODIFICATION_FAILED | No | Group modification failed |
+| CACHE | GROUP_RESTART_START | No | Group restart started |
+| CACHE | GROUP_RESTART_END | No | Group restart completed |
+| CACHE | GROUP_RESTART_FAILED | No | Group restart failed |
+| CACHE | GROUP_UPGRADE_START | No | Group upgrade started |
+| CACHE | GROUP_UPGRADE_END | No | Group upgrade completed |
+| CACHE | GROUP_UPGRADE_FAILED | No | Group upgrade failed |
+| CACHE | GROUP_UPGRADE_HA_UPGRADE_FAILED | No | Group upgrade HA failed |
+| CACHE | GROUP_UPGRADE_MASTER_UPGRADE_FAILED | No | Group upgrade Master failed |
+| CACHE | GROUP_UPGRADE_REPLICA_PROMOTE_FAILED | No | Group upgrade Replica Promotion failed |
+| CACHE | GROUP_UPGRADE_REPLICA_UPGRADE_FAILED | No | Group upgrade Replica failed |
+| PARAMETER_GROUP | PROFILE_UPDATE_START | No | Profile update started |
+| PARAMETER_GROUP | PROFILE_UPDATE_END | No | Profile update completed |
+| PARAMETER_GROUP | PROFILE_UPDATE_FAILED | No | Profile update failed |
+| NODE | SENTINEL_INSTANCE_RUNNING | No | Instance running |
+| NODE | SENTINEL_INSTANCE_STOPPED | No | Instance stopped |
 
 
-## 이벤트 구독
+## Event Subscription
 
-이벤트 유형, 코드 및 소스로 구분하여 이벤트를 구독할 수 있습니다. 이벤트 유형으로 구독하면 이벤트 유형에 포함된 모든 이벤트 코드의 알림을 받습니다. 알림이 너무 광범위할 경우 이벤트 코드와 소스로 세분화해 구독할 수 있습니다. 프로젝트 멤버만 알림을 받을 사용자로 선택할 수 있습니다. 기본적으로 이메일로 이벤트 알림이 발송되며, 실명을 인증한 휴대전화 번호가 등록된 경우에만 SMS로 추가 이벤트 알림이 발송됩니다.
+You can subscribe to events filtered by event type, code, or source. Subscribing to an event type allows you to receive notifications for all event codes within that category. For more specific alerts, you can refine your subscription by selecting individual event codes and sources. Only project members can be selected as notification recipients. By default, notifications are sent via email; SMS alerts are sent only if a mobile number is registered with a real name.
 
 ![event1.PNG](https://static.toastoven.net/prod_easycache/25.09.27/event1.PNG)
 ![event2.PNG](https://static.toastoven.net/prod_easycache/25.09.27/event2.PNG)
 
-❶: **이벤트 구독 등록**을 누르면 이벤트 구독을 등록할 수 있는 팝업 창이 나타납니다.
-❷: 구독할 이벤트 유형을 선택합니다. 이벤트 유형에 따라 선택할 수 있는 이벤트 코드가 변경됩니다.
-❸: 이벤트 템플릿을 이용하면 템플릿에 미리 정해진 이벤트 코드들을 한 번에 입력할 수 있습니다.
-❹: 구독할 이벤트 코드를 직접 선택합니다. 이벤트 템플릿을 사용한 상태에서 이벤트 코드를 변경할 경우 이벤트 템플릿 항목이 해제됩니다.
-❺: 구독할 이벤트 소스를 직접 선택합니다. 
-❻: 이벤트 알림을 받을 사용자 그룹을 선택합니다. 
-❼: 알림 유형을 통해 알림을 받을 방식을 선택합니다.
-❽: 활성화 여부를 선택합니다. 활성화 여부를 **아니오**로 선택할 경우 이벤트 발생 알림을 발송하지 않습니다.
+❶: Click **Register Event Subscription** to open the registration popup window.
+❷: Select an event type. The available event codes will update based on the selected type.
+❸: Use an Event Template to populate multiple predefined event codes at once quickly.
+❹: Select event codes manually. If you modify the event codes while using a template, the Event Template selection will be deselected.
+❺: Select the event sources you wish to subscribe to. 
+❻: Select a user group to receive the event notifications. 
+❼: Select a notification method under the Notification Type section.
+❽: Set the status to Enabled or Disabled. If set to **No**, notifications will not be sent even when events occur.
